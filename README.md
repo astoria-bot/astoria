@@ -12,7 +12,3 @@ A Discord bot :)
 pip install -r requirements.txt
 python bot.py
 ```
-
-## Terms
-
-* Cog - a collection of commands, listeners, and optional state to help group commands together. 
