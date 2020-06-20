@@ -13,7 +13,7 @@ class Admin(commands.Cog):
     @commands.has_role('admin')
     async def create_channel(self, ctx, channel_name='text channel'):
         '''
-            Creates new text channel. 
+            Creates new text channel.
             Usage: -create-tc [name (optional)]
         '''
         guild = ctx.guild
@@ -21,6 +21,7 @@ class Admin(commands.Cog):
         if not existing_channel:
             print(f'Creating a new channel: {channel_name}')
             await guild.create_text_channel(channel_name)
+
 
 def setup(bot):
     bot.add_cog(Admin(bot))

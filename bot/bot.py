@@ -3,14 +3,16 @@ import discord
 from discord.ext import commands
 from dotenv import load_dotenv
 
-status='Reading Documentation Hell' # Set bot status message here
+status = 'Reading Documentation Hell'       # Set bot status message here
 
 load_dotenv()
 
 # Loaded from separate .env file
 TOKEN = os.getenv('DISCORD_TOKEN')
 GUILD = os.getenv('DISCORD_GUILD')
-MAIN_CHANNEL = os.getenv('CHANNEL_ID')
+
+# Main channel for the bot to post messages
+MAIN_CHANNEL = int(os.getenv('CHANNEL_ID'))
 
 bot = commands.Bot(command_prefix='-')
 
@@ -49,8 +51,8 @@ async def on_member_join(member):
     await member.dm_channel.send(
         f'Hi {member.name}, welcome to {guild.name}!'
     )
-    # ch = bot.get_channel(MAIN_CHANNEL)
-    # ch.send(f'{member.name} has joined the server!')
+    ch = bot.get_channel(MAIN_CHANNEL)
+    await ch.send(f'{member.name} has joined the server!')
 
 
 @bot.event
