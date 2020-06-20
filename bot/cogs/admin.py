@@ -9,12 +9,12 @@ class Admin(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(name='create-channel')
+    @commands.command(name='create-tc')
     @commands.has_role('admin')
     async def create_channel(self, ctx, channel_name='text channel'):
         '''
             Creates new text channel. 
-            Usage: -create-channel [name (optional)]
+            Usage: -create-tc [name (optional)]
         '''
         guild = ctx.guild
         existing_channel = discord.utils.get(guild.channels, name=channel_name)
