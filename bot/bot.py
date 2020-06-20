@@ -12,9 +12,9 @@ GUILD = os.getenv('DISCORD_GUILD')
 bot = commands.Bot(command_prefix='-')
 
 # List of cogs/extensions for the bot to load
-extensions = {
-    'cogs.basic'
-}
+extensions = [
+    'cogs.games'
+]
 
 @bot.event
 async def on_ready():
@@ -39,24 +39,6 @@ async def on_member_join(member):
         f'Hi {member.name}, welcome to {guild.name}!'
     )
     await guild.channel.send("Welcome!")
-
-# @bot.command(name='99', help='This is a test description.')
-# async def random_text(ctx):
-#     text = [
-#         'fenceywoah',
-#         'agithaneat',
-#         'Stop reading what I type noob.'
-#     ]
-#     response = random.choice(text)
-#     await ctx.send(response)
-
-# @bot.command(name='roll', help='Simulates rolling dice.')
-# async def roll(ctx, number_of_dice: int, number_of_sides: int):
-#     dice = [
-#         str(random.choice(range(1, number_of_sides + 1)))
-#         for _ in range(number_of_dice)
-#     ]
-#     await ctx.send(', '.join(dice))
 
 # @bot.command(name='create-channel')
 # @commands.has_role('admin')
