@@ -1,5 +1,4 @@
 import os
-import random
 
 import discord
 from discord.ext import commands
@@ -13,8 +12,10 @@ bot = commands.Bot(command_prefix='-')
 
 # List of cogs/extensions for the bot to load
 extensions = [
+    'cogs.admin',
     'cogs.games'
 ]
+
 
 @bot.event
 async def on_ready():
@@ -28,6 +29,7 @@ async def on_ready():
         f'{guild.name}(id: {guild.id})'
     )
 
+
 @bot.event
 async def on_member_join(member):
     '''
@@ -40,6 +42,7 @@ async def on_member_join(member):
     )
     await guild.channel.send("Welcome!")
 
+
 # @bot.command(name='create-channel')
 # @commands.has_role('admin')
 # async def create_channel(ctx, channel_name='test'):
@@ -48,6 +51,7 @@ async def on_member_join(member):
 #     if not existing_channel:
 #         print(f'Creating a new channel: {channel_name}')
 #         await guild.create_text_channel(channel_name)
+
 
 @bot.event
 async def on_command_error(ctx, error):

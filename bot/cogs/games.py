@@ -1,11 +1,11 @@
-import discord
 import random
 import asyncio
 from discord.ext import commands
 
+
 class Games(commands.Cog):
     '''
-        Mini games
+        Minigames
     '''
     def __init__(self, bot):
         self.bot = bot
@@ -16,11 +16,12 @@ class Games(commands.Cog):
         '''
             Flips a coin! Heads or tails?
         '''
-        coin_sides = ['Heads!','Tails!']
+        coin_sides = ['Heads!', 'Tails!']
         result = random.choice(coin_sides)
         await ctx.send('Flipping the coin...')
         await asyncio.sleep(2)
         await ctx.send(result)
+
 
 def setup(bot):
     bot.add_cog(Games(bot))
