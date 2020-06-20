@@ -1,12 +1,16 @@
 import os
-
 import discord
 from discord.ext import commands
 from dotenv import load_dotenv
 
+status='Reading Documentation Hell' # Set bot status message here
+
 load_dotenv()
+
+# Loaded from separate .env file
 TOKEN = os.getenv('DISCORD_TOKEN')
 GUILD = os.getenv('DISCORD_GUILD')
+MAIN_CHANNEL = os.getenv('CHANNEL_ID')
 
 bot = commands.Bot(command_prefix='-')
 
@@ -21,13 +25,18 @@ extensions = [
 async def on_ready():
     '''
         Displays specific information about the server the bot is connected to.
+        Also updates status of the bot.
     '''
     guild = discord.utils.get(bot.guilds, name=GUILD)
     print(
         f'{bot.user} has connected to Discord!\n'
-        f'{bot.user} is connected to the following guild: '
+        f'{bot.user} has connected to the following guild: '
         f'{guild.name}(id: {guild.id})'
     )
+    # Set status to be displayed on Discord
+    game = discord.Game(status)
+    await bot.change_presence(status=discord.Status.online, activity=game)
+    print("All setup tasks are completed!")
 
 
 @bot.event
@@ -40,17 +49,8 @@ async def on_member_join(member):
     await member.dm_channel.send(
         f'Hi {member.name}, welcome to {guild.name}!'
     )
-    await guild.channel.send("Welcome!")
-
-
-# @bot.command(name='create-channel')
-# @commands.has_role('admin')
-# async def create_channel(ctx, channel_name='test'):
-#     guild = ctx.guild
-#     existing_channel = discord.utils.get(guild.channels, name=channel_name)
-#     if not existing_channel:
-#         print(f'Creating a new channel: {channel_name}')
-#         await guild.create_text_channel(channel_name)
+    # ch = bot.get_channel(MAIN_CHANNEL)
+    # ch.send(f'{member.name} has joined the server!')
 
 
 @bot.event
