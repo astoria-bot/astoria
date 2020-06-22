@@ -3,7 +3,7 @@ import discord
 from discord.ext import commands
 from dotenv import load_dotenv
 
-status = 'Reading Documentation Hell'       # Set bot status message here
+status = "!help | suffering"      # Set bot status message here
 
 load_dotenv()
 

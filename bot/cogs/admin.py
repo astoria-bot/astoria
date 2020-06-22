@@ -4,7 +4,7 @@ from discord.ext import commands
 
 class Admin(commands.Cog):
     '''
-    Administrative Tools for astoria.
+    Administrative tools for astoria.
     '''
     def __init__(self, bot):
         self.bot = bot

@@ -4,7 +4,7 @@ from discord.ext import commands
 
 class Moderation(commands.Cog):
     '''
-    Moderation Tools for astoria.
+    Moderation tools for astoria.
     '''
     def __init__(self, bot):
         self.bot = bot
@@ -14,6 +14,7 @@ class Moderation(commands.Cog):
     async def kick(self, ctx, member: discord.Member, *, reason: str = None):
         '''
         Kicks a user from the server.
+        Usage: !kick [username]
         '''
         await member.kick()
         await ctx.send(discord.Member.display_name)
@@ -23,7 +24,7 @@ class Moderation(commands.Cog):
     async def new_channel(self, ctx, channel_name='text channel'):
         '''
         Creates new text channel.
-        Usage: -new-channel [name (optional)]
+        Usage: !new-channel [name (optional)]
         '''
         guild = ctx.guild
         existing_channel = discord.utils.get(guild.channels, name=channel_name)
