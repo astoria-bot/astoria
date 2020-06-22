@@ -32,7 +32,7 @@ async def on_ready():
     # Set status to be displayed on Discord
     game = discord.Game(status)
     await bot.change_presence(status=discord.Status.online, activity=game)
-    print("All setup tasks are completed!")
+    print("All setup tasks are completed! astoria is good to go!")
 
 
 @bot.event
@@ -57,10 +57,12 @@ async def on_command_error(ctx, error):
     if isinstance(error, commands.errors.CheckFailure):
         await ctx.send('You do not have the correct role for this command.')
 
-if __name__ == "__main__":
-    # Loads extensions/cogs from cogs folder
-    for file in os.listdir("bot/cogs"):
-        if file.endswith(".py"):
-            name = file[:-3]
-            bot.load_extension(f"cogs.{name}")
-    bot.run(TOKEN)
+
+# Loads extensions/cogs from cogs folder
+print("Loading extensions...")
+for file in os.listdir("bot/cogs"):
+    if file.endswith(".py"):
+        name = file[:-3]
+        bot.load_extension(f"cogs.{name}")
+        print("Loading " + f"cogs.{name}")
+bot.run(TOKEN)
