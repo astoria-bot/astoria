@@ -16,12 +16,6 @@ MAIN_CHANNEL = int(os.getenv('CHANNEL_ID'))
 
 bot = commands.Bot(command_prefix='-')
 
-# List of cogs/extensions for the bot to load
-extensions = [
-    'cogs.admin',
-    'cogs.games'
-]
-
 
 @bot.event
 async def on_ready():
@@ -64,11 +58,9 @@ async def on_command_error(ctx, error):
         await ctx.send('You do not have the correct role for this command.')
 
 if __name__ == "__main__":
-    # Loads extensions/cogs
-    for ext in extensions:
-        try:
-            bot.load_extension(ext)
-        except Exception as e:
-            exc = '{}: {}'.format(type(e).__name__, e)
-            print('Failed to load extension {}\n{}'.format(ext, exc))
+    # Loads extensions/cogs from cogs folder
+    for file in os.listdir("bot/cogs"):
+        if file.endswith(".py"):
+            name = file[:-3]
+            bot.load_extension(f"cogs.{name}")
     bot.run(TOKEN)
