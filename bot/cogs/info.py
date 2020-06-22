@@ -5,7 +5,7 @@ class Info(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(name="about")
+    @commands.command()
     async def about(self, ctx):
         '''
         Displays a description about the bot.
