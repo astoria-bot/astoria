@@ -17,7 +17,7 @@ class Moderation(commands.Cog):
         Usage: !kick [username]
         '''
         await member.kick()
-        await ctx.send(discord.Member.display_name)
+        await ctx.send("{0.name} has left the server.".format(member))
 
     @commands.has_permissions(manage_channels=True)
     @commands.command(name='new-channel')
