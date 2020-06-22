@@ -18,7 +18,6 @@ class Moderation(commands.Cog):
         await member.kick()
         await ctx.send(discord.Member.display_name)
 
-
     @commands.has_permissions(manage_channels=True)
     @commands.command(name='new-channel')
     async def new_channel(self, ctx, channel_name='text channel'):
@@ -31,6 +30,7 @@ class Moderation(commands.Cog):
         if not existing_channel:
             print(f'Creating a new channel: {channel_name}')
             await guild.create_text_channel(channel_name)
+
 
 def setup(bot):
     bot.add_cog(Moderation(bot))
