@@ -14,7 +14,6 @@ class Events(commands.Cog):
         '''
         Welcomes new members to the server.
         '''
-        # guild = discord.utils.get(member.guilds, name=GUILD)
         await member.create_dm()
         await member.dm_channel.send(
             'Hi {0.name}, welcome to {1.name}!'.format(member, member.guild)
@@ -29,17 +28,27 @@ class Events(commands.Cog):
         '''
         if isinstance(error, commands.MissingPermissions):
             await ctx.send(
-                'You do not have the permissions required for this command.'
+                "You do not have the permissions required for this command."
             )
             return
         elif isinstance(error, commands.errors.CheckFailure):
             await ctx.send(
-                'You do not have the correct role for this command.'
+                "You do not have the correct role for this command."
             )
             return
         elif isinstance(error, commands.errors.BadArgument):
             await ctx.send(
-                'I could not find that user. Please try again.'
+                "I could not find that user. Please try again."
+            )
+            return
+        elif isinstance(error, commands.errors.CommandNotFound):
+            await ctx.send(
+                "That command does not exist."
+            )
+            return
+        elif isinstance(error, commands.errors.CommandInvokeError):
+            await ctx.send(
+                "I don't have permission to do that."
             )
             return
         raise error
