@@ -15,11 +15,22 @@ class Moderation(commands.Cog):
         '''
         Kicks a user from the server.
         '''
-        try:
-            await member.kick()
-            await ctx.send("Kicking")
-        except BadArgument:
-            await ctx.send("Member does not exist")
+        await member.kick()
+        await ctx.send(discord.Member.display_name)
+
+
+    @commands.has_permissions(manage_channels=True)
+    @commands.command(name='new-channel')
+    async def new_channel(self, ctx, channel_name='text channel'):
+        '''
+        Creates new text channel.
+        Usage: -new-channel [name (optional)]
+        '''
+        guild = ctx.guild
+        existing_channel = discord.utils.get(guild.channels, name=channel_name)
+        if not existing_channel:
+            print(f'Creating a new channel: {channel_name}')
+            await guild.create_text_channel(channel_name)
 
 def setup(bot):
     bot.add_cog(Moderation(bot))
