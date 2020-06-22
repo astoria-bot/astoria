@@ -20,8 +20,8 @@ bot = commands.Bot(command_prefix='-')
 @bot.event
 async def on_ready():
     '''
-        Displays specific information about the server the bot is connected to.
-        Also updates status of the bot.
+    Displays specific information about the server the bot is connected to.
+    Also updates status of the bot.
     '''
     guild = discord.utils.get(bot.guilds, name=GUILD)
     print(
@@ -38,7 +38,7 @@ async def on_ready():
 @bot.event
 async def on_member_join(member):
     '''
-        Welcomes new members to the server.
+    Welcomes new members to the server.
     '''
     guild = discord.utils.get(bot.guilds, name=GUILD)
     await member.create_dm()
@@ -52,7 +52,7 @@ async def on_member_join(member):
 @bot.event
 async def on_command_error(ctx, error):
     '''
-        Handles exception errors caused by commands.
+    Handles exception errors caused by commands.
     '''
     if isinstance(error, commands.errors.CheckFailure):
         await ctx.send('You do not have the correct role for this command.')

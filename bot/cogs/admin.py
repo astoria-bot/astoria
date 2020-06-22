@@ -4,7 +4,7 @@ from discord.ext import commands
 
 class Admin(commands.Cog):
     '''
-        Administrative Tools for Discord.
+    Administrative Tools for astoria.
     '''
     def __init__(self, bot):
         self.bot = bot
@@ -13,8 +13,8 @@ class Admin(commands.Cog):
     @commands.has_role('admin')
     async def create_channel(self, ctx, channel_name='text channel'):
         '''
-            Creates new text channel.
-            Usage: -create-tc [name (optional)]
+        Creates new text channel.
+        Usage: -create-tc [name (optional)]
         '''
         guild = ctx.guild
         existing_channel = discord.utils.get(guild.channels, name=channel_name)

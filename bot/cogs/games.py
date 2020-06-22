@@ -5,7 +5,7 @@ from discord.ext import commands
 
 class Games(commands.Cog):
     '''
-        Minigames
+    Minigames
     '''
     def __init__(self, bot):
         self.bot = bot
@@ -14,7 +14,7 @@ class Games(commands.Cog):
     @commands.command()
     async def flip(self, ctx):
         '''
-            Flips a coin! Heads or tails?
+        Flips a coin! Heads or tails?
         '''
         coin_sides = ['Heads!', 'Tails!']
         result = random.choice(coin_sides)
