@@ -14,7 +14,7 @@ GUILD = os.getenv('DISCORD_GUILD')
 # Main channel for the bot to post messages
 MAIN_CHANNEL = int(os.getenv('CHANNEL_ID'))
 
-bot = commands.Bot(command_prefix='-')
+bot = commands.Bot(command_prefix='!')
 
 
 @bot.event
@@ -47,15 +47,6 @@ async def on_member_join(member):
     )
     ch = bot.get_channel(MAIN_CHANNEL)
     await ch.send(f'{member.name} has joined the server!')
-
-
-@bot.event
-async def on_command_error(ctx, error):
-    '''
-    Handles exception errors caused by commands.
-    '''
-    if isinstance(error, commands.errors.CheckFailure):
-        await ctx.send('You do not have the correct role for this command.')
 
 
 # Loads extensions/cogs from cogs folder
