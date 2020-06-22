@@ -35,20 +35,6 @@ async def on_ready():
     print("All setup tasks are completed! astoria is good to go!")
 
 
-@bot.event
-async def on_member_join(member):
-    '''
-    Welcomes new members to the server.
-    '''
-    guild = discord.utils.get(bot.guilds, name=GUILD)
-    await member.create_dm()
-    await member.dm_channel.send(
-        f'Hi {member.name}, welcome to {guild.name}!'
-    )
-    ch = bot.get_channel(MAIN_CHANNEL)
-    await ch.send(f'{member.name} has joined the server!')
-
-
 # Loads extensions/cogs from cogs folder
 print("Loading extensions...")
 for file in os.listdir("bot/cogs"):
