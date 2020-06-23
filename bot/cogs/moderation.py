@@ -1,6 +1,20 @@
 import discord
 from discord.ext import commands
 
+# Source: https://github.com/Rapptz/RoboDanny/blob/rewrite/cogs/mod.py
+class MemberID(commands.Converter):
+    async def convert(self, ctx, argument):
+        try:
+            m = await commands.MemberConverter().convert(ctx, argument)
+        except commands.BadArgument:
+            try:
+                return int(argument, base=10)
+            except ValueError:
+                raise commands.BadArgument(
+                    f"{argument} is not a valid member or member ID."
+                ) from None
+        else:
+            return m.id
 
 class Moderation(commands.Cog):
     '''
@@ -17,7 +31,33 @@ class Moderation(commands.Cog):
         Usage: !kick [username]
         '''
         await member.kick()
-        await ctx.send("{0.name} has left the server.".format(member))
+        await ctx.send(
+            "{0.name} has been kicked from the server.".format(member)
+        )
+
+    @commands.command()
+    @commands.has_permissions(ban_members=True)
+    async def ban(self, ctx, member: discord.Member, *, reason: str = None):
+        '''
+        Bans a user from the server.
+        Usage: !ban [username]
+
+        TODO: Option to add a reason for a ban
+        '''
+        await member.ban()
+        await ctx.send(
+            "{0.name} has been banned from the server.".format(member)
+        )
+
+    @commands.command()
+    @commands.has_permissions(ban_members=True)
+    async def unban(self, ctx, member: MemberID):
+        '''
+        Unbans a user from the server.
+        Usage: !unban [user id number]
+        '''
+        await ctx.guild.unban(discord.Object(id=member))
+        await ctx.send("User has been unbanned.")
 
     @commands.has_permissions(manage_channels=True)
     @commands.command(name='new-channel')
