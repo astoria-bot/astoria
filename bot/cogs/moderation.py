@@ -72,6 +72,19 @@ class Moderation(commands.Cog):
             print(f'Creating a new channel: {channel_name}')
             await guild.create_text_channel(channel_name)
 
+    @commands.has_permissions(manage_roles=True)
+    @commands.command(name='give-role')
+    async def give_role(self, ctx, member: discord.Member, role: discord.Role):
+        '''
+        Assigns a pre-made role to a user.
+        Usage: !give-role [user name] [role name]
+        '''
+        user = member
+        await user.add_roles(role)
+        await ctx.send(
+            "{0.name} has been assigned the role {1.name}.".format(member, role)
+        )
+
 
 def setup(bot):
     bot.add_cog(Moderation(bot))
