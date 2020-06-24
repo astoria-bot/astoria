@@ -38,7 +38,7 @@ class Events(commands.Cog):
             return
         elif isinstance(error, commands.errors.BadArgument):
             await ctx.send(
-                "I could not find that user. Please try again."
+                "I could not find what you specified. Please try again."
             )
             return
         elif isinstance(error, commands.errors.CommandNotFound):
