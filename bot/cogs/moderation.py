@@ -1,6 +1,7 @@
 import discord
 from discord.ext import commands
 
+
 # Source: https://github.com/Rapptz/RoboDanny/blob/rewrite/cogs/mod.py
 class MemberID(commands.Converter):
     async def convert(self, ctx, argument):
@@ -15,6 +16,7 @@ class MemberID(commands.Converter):
                 ) from None
         else:
             return m.id
+
 
 class Moderation(commands.Cog):
     '''
@@ -95,13 +97,13 @@ class Moderation(commands.Cog):
     @commands.command()
     async def mute(self, ctx, member: discord.Member):
         '''
-        Mutes a user from a text channel.
+        Mutes a user from text channels.
         Usage: !mute [username]
         '''
-        role_name="Muted"
-        # Muted role does not exist, create it
+        role_name = "Muted"
         if not discord.utils.get(ctx.guild.roles, name=role_name):
-            perm = discord.Permissions(     # defaults to no permissions allowed
+            # Muted role does not exist, create it
+            perm = discord.Permissions(    # defaults to no permissions allowed
                 read_message_history=True
             )
             await ctx.guild.create_role(
@@ -109,6 +111,10 @@ class Moderation(commands.Cog):
                 permissions=perm,
                 reason="There was no 'Muted' role previously to mute members."
             )
+            print("Created Muted role...")
+        #
+        # TODO: This part isn't very efficient
+        #
         role = discord.utils.get(ctx.guild.roles, name=role_name)
         # Set permissions for the muted role in each text channel
         for channel in ctx.guild.text_channels:
@@ -119,9 +125,36 @@ class Moderation(commands.Cog):
             f"{member.name} has been muted."
         )
 
-    '''
-    TODO: Unmute
-    '''
+    @commands.has_permissions(manage_messages=True)
+    @commands.command()
+    async def unmute(self, ctx, member: discord.Member):
+        '''
+        Unmutes a user from text channels.
+        Usage: !unmute [username]
+        '''
+        role_name = "Muted"
+        role = discord.utils.get(ctx.guild.roles, name=role_name)
+        if not discord.utils.get(ctx.guild.roles, name=role_name):
+            # Muted role does not exist, create it
+            perm = discord.Permissions(    # defaults to no permissions allowed
+                read_message_history=True
+            )
+            await ctx.guild.create_role(
+                name=role_name,
+                permissions=perm,
+                reason="There was no 'Muted' role previously to mute members."
+            )
+            print("Created Muted role because it didn't exist before...")
+        if not discord.utils.get(member.roles, name=role_name):
+            # Member doesn't have Muted role6
+            await ctx.send(f"{member.name} is already unmuted.")
+        else:
+            # Unmute user
+            await member.remove_roles(role)
+            await ctx.send(
+                f"{member.name} has been unmuted."
+            )
+
 
 def setup(bot):
     bot.add_cog(Moderation(bot))
