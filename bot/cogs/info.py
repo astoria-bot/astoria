@@ -12,9 +12,9 @@ class Info(commands.Cog):
         '''
         await ctx.send(
             '''
-            Hi I'm astoria! I'm a Discord bot made with Discord.py.\n
-            You can find my source code here: https://github.com/jgo28/astoria\n
-            For a list of my commands, type `!help`!
+            Hi I'm astoria! I'm a Discord bot made with Discord.py.
+            \nFor a list of all my commands, type `!help`!
+            \nYou can find my source code here: https://github.com/jgo28/astoria
             '''
         )
 
