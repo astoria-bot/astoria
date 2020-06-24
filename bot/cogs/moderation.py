@@ -73,17 +73,24 @@ class Moderation(commands.Cog):
             await guild.create_text_channel(channel_name)
 
     @commands.has_permissions(manage_roles=True)
-    @commands.command(name='give-role')
-    async def give_role(self, ctx, member: discord.Member, role: discord.Role):
+    @commands.command(name='role')
+    async def role(self, ctx, member: discord.Member, role: discord.Role):
         '''
-        Assigns a pre-made role to a user.
-        Usage: !give-role [user name] [role name]
+        If the user has the role, removes it. If the user does not have the
+        role, assigns it to them.
+        Usage: !role [user name] [role name]
         '''
         user = member
-        await user.add_roles(role)
-        await ctx.send(
-            "{0.name} has been assigned the role {1.name}.".format(member, role)
-        )
+        if role in member.roles:
+            await user.remove_roles(role)
+            await ctx.send(
+                "The {1.name} role was removed from {0.name}.".format(member, role)
+            )
+        else:
+            await user.add_roles(role)
+            await ctx.send(
+                "{0.name} has been assigned the role {1.name}.".format(member, role)
+            )
 
 
 def setup(bot):
