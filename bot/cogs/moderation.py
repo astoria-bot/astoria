@@ -32,7 +32,7 @@ class Moderation(commands.Cog):
         '''
         await member.kick()
         await ctx.send(
-            "{0.name} has been kicked from the server.".format(member)
+            f"{member.name} has been kicked from the server."
         )
 
     @commands.command()
@@ -46,7 +46,7 @@ class Moderation(commands.Cog):
         '''
         await member.ban()
         await ctx.send(
-            "{0.name} has been banned from the server.".format(member)
+            f"{member.name} has been banned from the server."
         )
 
     @commands.command()
@@ -60,16 +60,16 @@ class Moderation(commands.Cog):
         await ctx.send("User has been unbanned.")
 
     @commands.has_permissions(manage_channels=True)
-    @commands.command(name='new-channel')
+    @commands.command(name='nchannel')
     async def new_channel(self, ctx, channel_name='text channel'):
         '''
         Creates new text channel.
-        Usage: !new-channel [name (optional)]
+        Usage: !nchannel [name (optional)]
         '''
         guild = ctx.guild
         existing_channel = discord.utils.get(guild.channels, name=channel_name)
         if not existing_channel:
-            print(f'Creating a new channel: {channel_name}')
+            print(f"Creating a new channel called {channel_name}.")
             await guild.create_text_channel(channel_name)
 
     @commands.has_permissions(manage_roles=True)
@@ -84,12 +84,12 @@ class Moderation(commands.Cog):
         if role in member.roles:
             await user.remove_roles(role)
             await ctx.send(
-                "The {1.name} role was removed from {0.name}.".format(member, role)
+                f"The {role.name} role was removed from {member.name}."
             )
         else:
             await user.add_roles(role)
             await ctx.send(
-                "{0.name} has been assigned the role {1.name}.".format(member, role)
+                f"The {role.name} role has been assigned to {member.name}."
             )
 
 

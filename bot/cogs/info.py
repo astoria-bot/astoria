@@ -11,7 +11,11 @@ class Info(commands.Cog):
         Displays a description about the bot.
         '''
         await ctx.send(
-            "Hi I'm astoria! I'm a Discord bot made with Discord.py."
+            '''
+            Hi I'm astoria! I'm a Discord bot made with Discord.py.\n
+            You can find my source code here: https://github.com/jgo28/astoria\n
+            For a list of my commands, type `!help`!
+            '''
         )
 
 

@@ -16,7 +16,7 @@ class Events(commands.Cog):
         '''
         await member.create_dm()
         await member.dm_channel.send(
-            'Hi {0.name}, welcome to {1.name}!'.format(member, member.guild)
+            f"Hi {member.name}, welcome to {member.guild.name}!"
         )
         channel = member.guild.system_channel
         await channel.send(f'{member.name} has joined the server!')
