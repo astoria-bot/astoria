@@ -64,7 +64,7 @@ class Moderation(commands.Cog):
     async def new_channel(self, ctx, channel_name='text channel'):
         '''
         Creates new text channel.
-        Usage: !nchannel [name (optional)]
+        Usage: !nchannel [username (optional)]
         '''
         guild = ctx.guild
         existing_channel = discord.utils.get(guild.channels, name=channel_name)
@@ -78,20 +78,50 @@ class Moderation(commands.Cog):
         '''
         If the user has the role, removes it. If the user does not have the
         role, assigns it to them.
-        Usage: !role [user name] [role name]
+        Usage: !role [username] [role name]
         '''
-        user = member
-        if role in member.roles:
-            await user.remove_roles(role)
+        if role in member.roles:    # User already has the role; remove it
+            await member.remove_roles(role)
             await ctx.send(
                 f"The {role.name} role was removed from {member.name}."
             )
-        else:
-            await user.add_roles(role)
+        else:   # User does not have role, assign it to them
+            await member.add_roles(role)
             await ctx.send(
                 f"The {role.name} role has been assigned to {member.name}."
             )
 
+    @commands.has_permissions(manage_messages=True)
+    @commands.command()
+    async def mute(self, ctx, member: discord.Member):
+        '''
+        Mutes a user from a text channel.
+        Usage: !mute [username]
+        '''
+        role_name="Muted"
+        # Muted role does not exist, create it
+        if not discord.utils.get(ctx.guild.roles, name=role_name):
+            perm = discord.Permissions(     # defaults to no permissions allowed
+                read_message_history=True
+            )
+            await ctx.guild.create_role(
+                name=role_name,
+                permissions=perm,
+                reason="There was no 'Muted' role previously to mute members."
+            )
+        role = discord.utils.get(ctx.guild.roles, name=role_name)
+        # Set permissions for the muted role in each text channel
+        for channel in ctx.guild.text_channels:
+            await channel.set_permissions(role, send_messages=False)
+        # Assign muted role to user
+        await member.add_roles(role)
+        await ctx.send(
+            f"{member.name} has been muted."
+        )
+
+    '''
+    TODO: Unmute
+    '''
 
 def setup(bot):
     bot.add_cog(Moderation(bot))
