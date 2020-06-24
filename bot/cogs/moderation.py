@@ -112,13 +112,7 @@ class Moderation(commands.Cog):
                 reason="There was no 'Muted' role previously to mute members."
             )
             print("Created Muted role...")
-        #
-        # TODO: This part isn't very efficient
-        #
         role = discord.utils.get(ctx.guild.roles, name=role_name)
-        # Set permissions for the muted role in each text channel
-        for channel in ctx.guild.text_channels:
-            await channel.set_permissions(role, send_messages=False)
         # Assign muted role to user
         await member.add_roles(role)
         await ctx.send(
