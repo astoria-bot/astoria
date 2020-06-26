@@ -1,4 +1,5 @@
 import discord
+import asyncio
 from discord.ext import commands
 
 
@@ -34,7 +35,8 @@ class Moderation(commands.Cog):
             return
         elif isinstance(error, commands.errors.MissingRequiredArgument):
             await ctx.send("A user needs to be specified.")
-            return 
+            return
+
 
     @commands.command()
     @commands.has_permissions(kick_members=True)
@@ -144,6 +146,20 @@ class Moderation(commands.Cog):
                 f"{member.name} has been unmuted."
             )
 
+    @commands.has_permissions(manage_messages=True, read_message_history=True)
+    @commands.command()
+    async def clear(self, ctx, msgs: int = 1):
+        '''
+        Deletes the specified amount of messages. Delete 1 message by default
+        Usage: !clear [number (optional)]
+        '''
+        if msgs > 100:
+            await ctx.send("Limit of messages that can be deleted is 100.")
+            return
+        await ctx.channel.purge(limit=msgs+1)
+        await ctx.send(f"Deleted {msgs} message(s).", delete_after=3)
+   
+        
     @mute.error
     @unmute.error
     async def muted_error(self, ctx, error):
@@ -153,6 +169,7 @@ class Moderation(commands.Cog):
         if isinstance(error, commands.errors.CommandInvokeError):
             await ctx.send("Try running `!setup` to create a Muted role.")
             return
+
 
 def setup(bot):
     bot.add_cog(Moderation(bot))
