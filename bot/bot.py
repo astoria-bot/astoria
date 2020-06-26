@@ -23,12 +23,17 @@ async def on_ready():
     Displays specific information about the server the bot is connected to.
     Also updates status of the bot.
     '''
-    guild = discord.utils.get(bot.guilds, name=GUILD)
-    print(
-        f'{bot.user} has connected to Discord!\n'
-        f'{bot.user} has connected to the following guild: '
-        f'{guild.name}(id: {guild.id})'
-    )
+    try:
+        guild = discord.utils.get(bot.guilds, name=GUILD)
+        print(
+            f'{bot.user} has connected to Discord!\n'
+            f'{bot.user} has connected to the following guild: '
+            f'{guild.name}(id: {guild.id})'
+        )
+    except AttributeError:
+        print(
+            "An error occured. Please check your .env file for incorrect variables.")
+        return
     # Set status to be displayed on Discord
     game = discord.Game(status)
     await bot.change_presence(status=discord.Status.online, activity=game)
