@@ -25,6 +25,17 @@ class Moderation(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
+    async def cog_command_error(self, ctx, error):
+        '''
+        Error handling for Moderation Cog commands.
+        '''
+        if isinstance(error, commands.errors.CommandInvokeError):
+            await ctx.send("The role could not be found.")
+            return
+        elif isinstance(error, commands.errors.MissingRequiredArgument):
+            await ctx.send("A user needs to be specified.")
+            return 
+
     @commands.command()
     @commands.has_permissions(kick_members=True)
     async def kick(self, ctx, member: discord.Member, *, reason: str = None):
@@ -39,27 +50,33 @@ class Moderation(commands.Cog):
 
     @commands.command()
     @commands.has_permissions(ban_members=True)
-    async def ban(self, ctx, member: discord.Member, *, reason: str = None):
+    async def ban(self, ctx, member: discord.Member = None, *, reason: str = None):
         '''
         Bans a user from the server.
         Usage: !ban [username]
 
         TODO: Option to add a reason for a ban
         '''
-        await member.ban()
-        await ctx.send(
-            f"{member.name} has been banned from the server."
-        )
+        if member is not None:
+            await member.ban()
+            await ctx.send(
+                f"{member.name} has been banned from the server."
+            )
+        else:
+            await ctx.send("A user needs to be specified.")
 
     @commands.command()
     @commands.has_permissions(ban_members=True)
-    async def unban(self, ctx, member: MemberID):
+    async def unban(self, ctx, member: MemberID = None):
         '''
         Unbans a user from the server.
         Usage: !unban [user id number]
         '''
-        await ctx.guild.unban(discord.Object(id=member))
-        await ctx.send("User has been unbanned.")
+        if member is not None:
+            await ctx.guild.unban(discord.Object(id=member))
+            await ctx.send("User has been unbanned.")
+        else:
+            await ctx.send("A user ID needs to be specified.")
 
     @commands.has_permissions(manage_channels=True)
     @commands.command(name='nchannel')
@@ -101,17 +118,6 @@ class Moderation(commands.Cog):
         Usage: !mute [username]
         '''
         role_name = "Muted"
-        if not discord.utils.get(ctx.guild.roles, name=role_name):
-            # Muted role does not exist, create it
-            perm = discord.Permissions(    # defaults to no permissions allowed
-                read_message_history=True
-            )
-            await ctx.guild.create_role(
-                name=role_name,
-                permissions=perm,
-                reason="There was no 'Muted' role previously to mute members."
-            )
-            print("Created Muted role...")
         role = discord.utils.get(ctx.guild.roles, name=role_name)
         # Assign muted role to user
         await member.add_roles(role)
@@ -128,17 +134,6 @@ class Moderation(commands.Cog):
         '''
         role_name = "Muted"
         role = discord.utils.get(ctx.guild.roles, name=role_name)
-        if not discord.utils.get(ctx.guild.roles, name=role_name):
-            # Muted role does not exist, create it
-            perm = discord.Permissions(    # defaults to no permissions allowed
-                read_message_history=True
-            )
-            await ctx.guild.create_role(
-                name=role_name,
-                permissions=perm,
-                reason="There was no 'Muted' role previously to mute members."
-            )
-            print("Created Muted role because it didn't exist before...")
         if not discord.utils.get(member.roles, name=role_name):
             # Member doesn't have Muted role6
             await ctx.send(f"{member.name} is already unmuted.")
@@ -149,6 +144,15 @@ class Moderation(commands.Cog):
                 f"{member.name} has been unmuted."
             )
 
+    @mute.error
+    @unmute.error
+    async def muted_error(self, ctx, error):
+        '''
+        Error handling specifically for the !mute and !unmute commands.
+        '''
+        if isinstance(error, commands.errors.CommandInvokeError):
+            await ctx.send("Try running `!setup` to create a Muted role.")
+            return
 
 def setup(bot):
     bot.add_cog(Moderation(bot))

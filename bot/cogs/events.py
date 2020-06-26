@@ -30,27 +30,24 @@ class Events(commands.Cog):
             await ctx.send(
                 "You do not have the permissions required for this command."
             )
-            return
+            # return
         elif isinstance(error, commands.errors.CheckFailure):
             await ctx.send(
                 "You do not have the correct role for this command."
             )
-            return
+            # return
         elif isinstance(error, commands.errors.BadArgument):
             await ctx.send(
                 "I could not find what you specified. Please try again."
             )
-            return
+            # return
         elif isinstance(error, commands.errors.CommandNotFound):
             await ctx.send(
                 "That command does not exist."
             )
-            return
+            # return
         elif isinstance(error, commands.errors.CommandInvokeError):
-            await ctx.send(
-                "I don't have permission to do that."
-            )
-            return
+            pass
         raise error
 
 
