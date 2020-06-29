@@ -15,6 +15,7 @@ class Games(commands.Cog):
     async def flip(self, ctx):
         '''
         Flips a coin! Heads or tails?
+        Usage: !flip
         '''
         coin_sides = ['Heads!', 'Tails!']
         result = random.choice(coin_sides)

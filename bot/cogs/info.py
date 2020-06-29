@@ -10,6 +10,7 @@ class Info(commands.Cog):
     async def about(self, ctx):
         '''
         Displays a description about the bot.
+        Usage: !about
         '''
         await ctx.send(
             '''
