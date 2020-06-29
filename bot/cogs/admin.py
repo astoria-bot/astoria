@@ -41,6 +41,21 @@ class Admin(commands.Cog):
         await ctx.send("Setup is now complete.")
         print("Setup is complete.")
 
+    @commands.has_permissions(administrator=True)
+    @commands.command(name="setstatus")
+    async def set_status(self, ctx, status: str = None):
+        '''
+        Changes the status message of the bot.
+        Usage: !setstatus [status]
+        '''
+        if status is None:
+            await ctx.send("No status was recevied. Status is unchanged.")
+            return
+        await self.bot.change_presence(
+            status=discord.Status.online,
+            activity=discord.Game(status)
+        )
+        await ctx.send("Bot status has been changed!")
 
 def setup(bot):
     bot.add_cog(Admin(bot))
