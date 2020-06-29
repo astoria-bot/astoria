@@ -1,5 +1,5 @@
 .vscode
 .env
-err.log
+discord.log
 
 __pycache__
