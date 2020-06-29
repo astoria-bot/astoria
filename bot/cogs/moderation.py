@@ -160,7 +160,6 @@ class Moderation(commands.Cog):
             await ctx.send("Limit of messages that can be deleted is 100.")
             return
         msgs = msgs + 1     # Delete the user's command message
-        # No member is specified
         deleted = await ctx.channel.purge(limit=msgs)
         await ctx.send(f"Deleted {len(deleted)-1} message(s).", delete_after=3)
 
