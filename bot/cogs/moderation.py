@@ -1,10 +1,12 @@
 import discord
-import asyncio
 from discord.ext import commands
 
 
-# Source: https://github.com/Rapptz/RoboDanny/blob/rewrite/cogs/mod.py
 class MemberID(commands.Converter):
+    '''
+    Source: https://github.com/Rapptz/RoboDanny/blob/rewrite/cogs/mod.py
+    Used for getting the User ID for unbanning users.
+    '''
     async def convert(self, ctx, argument):
         try:
             m = await commands.MemberConverter().convert(ctx, argument)
@@ -37,7 +39,6 @@ class Moderation(commands.Cog):
             await ctx.send("A user needs to be specified.")
             return
 
-
     @commands.command()
     @commands.has_permissions(kick_members=True)
     async def kick(self, ctx, member: discord.Member, *, reason: str = None):
@@ -52,7 +53,9 @@ class Moderation(commands.Cog):
 
     @commands.command()
     @commands.has_permissions(ban_members=True)
-    async def ban(self, ctx, member: discord.Member = None, *, reason: str = None):
+    async def ban(
+        self, ctx, member: discord.Member = None, *, reason: str = None
+    ):
         '''
         Bans a user from the server.
         Usage: !ban [username]
@@ -158,8 +161,7 @@ class Moderation(commands.Cog):
             return
         await ctx.channel.purge(limit=msgs+1)
         await ctx.send(f"Deleted {msgs} message(s).", delete_after=3)
-   
-        
+
     @mute.error
     @unmute.error
     async def muted_error(self, ctx, error):
