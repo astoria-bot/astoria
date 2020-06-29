@@ -32,7 +32,8 @@ async def on_ready():
         )
     except AttributeError:
         print(
-            "An error occured. Please check your .env file for incorrect variables.")
+            "An error occured. "
+            "Please check your .env file for incorrect variables.")
         return
     # Set status to be displayed on Discord
     game = discord.Game(status)
