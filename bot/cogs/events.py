@@ -40,7 +40,8 @@ class Events(commands.Cog):
             )
         elif isinstance(error, commands.errors.CommandNotFound):
             await ctx.send(
-                "That command does not exist. See `!help` for my list of commands."
+                "That command does not exist. "
+                "See `!help` for my list of commands."
             )
         elif isinstance(error, commands.errors.CommandInvokeError):
             pass
