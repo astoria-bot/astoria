@@ -21,6 +21,15 @@ class Info(commands.Cog):
             '''
         )
 
+    @commands.has_permissions(administrator=True)
+    @commands.command(name="members")
+    async def member_count(self, ctx, status: str = None):
+        '''
+        '''
+        members = ctx.guild.member_count
+        await ctx.send(members)
+
 
 def setup(bot):
     bot.add_cog(Info(bot))
+

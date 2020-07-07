@@ -57,5 +57,6 @@ class Admin(commands.Cog):
         )
         await ctx.send("Bot status has been changed!")
 
+
 def setup(bot):
     bot.add_cog(Admin(bot))
