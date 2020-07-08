@@ -1,7 +1,7 @@
 import os
 import sqlalchemy as sqla
 from dotenv import load_dotenv
-from utils.database.models import Base
+from cogs.utils.database.models import Base
 
 load_dotenv()
 
@@ -10,21 +10,20 @@ DB_PASSWORD = os.getenv('PASSWORD')
 DB_DATABASE = os.getenv('DATABASE')
 DB_HOST = os.getenv('HOST')
 
-e = f"mysql+mysqlconnector://{DB_USER}:{DB_PASSWORD}@{DB_HOST}/{DB_DATABASE}"
-engine = sqla.create_engine(e)
-connection = engine.connect()
-metadata = sqla.MetaData()    # Used for representing a Table
-# Create the table
-Base.metadata.create_all(engine)
+class DBConfig:
+    def __init__(self):
+        e = f"mysql+mysqlconnector://{DB_USER}:{DB_PASSWORD}@{DB_HOST}/{DB_DATABASE}"
+        self.engine = sqla.create_engine(e)
+        self.connection = self.engine.connect()
+        self.metadata = sqla.MetaData()    # Used for representing a Table
+        # Create the table
+        Base.metadata.create_all(self.engine)
 
+    def get_metadata(self):
+        return self.metadata
 
-def get_metadata():
-    return metadata
+    def get_engine(self):
+        return self.engine
 
-
-def get_engine():
-    return engine
-
-
-def get_connection():
-    return connection
+    def get_connection(self):
+        return self.connection

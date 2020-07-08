@@ -1,5 +1,8 @@
 import discord
 from discord.ext import commands
+from cogs.utils.levels import msg_sent
+from cogs.utils.database.methods import Methods
+from cogs.utils.database.config import DBConfig
 
 
 class Events(commands.Cog):
@@ -8,11 +11,15 @@ class Events(commands.Cog):
     '''
     def __init__(self, bot):
         self.bot = bot
+        self.engine = DBConfig().get_engine()
+        self.metadata = DBConfig().get_metadata()
+        self.conn = DBConfig().get_connection()
+        self.db = Methods(self.engine, self.metadata, self.conn)
 
     @commands.Cog.listener()
     async def on_member_join(self, member):
         '''
-        Welcomes new members to the server.
+        Welcomes new members to the server and add them to the database.
         '''
         await member.create_dm()
         await member.dm_channel.send(
@@ -20,6 +27,7 @@ class Events(commands.Cog):
         )
         channel = member.guild.system_channel
         await channel.send(f'{member.name} has joined the server!')
+        self.db.add_user(member.id, member.name, 1, 0, 0)
 
     @commands.Cog.listener()
     async def on_command_error(self, ctx, error):

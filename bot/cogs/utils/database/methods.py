@@ -1,6 +1,6 @@
 import sqlalchemy as sqla
 from sqlalchemy.orm import sessionmaker
-from utils.database.models import Users
+from cogs.utils.database.models import Users
 from sqlalchemy.orm.exc import MultipleResultsFound
 
 

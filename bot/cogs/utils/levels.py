@@ -1,10 +1,11 @@
-import utils.database.methods as methods
-import utils.database.config as config
+from cogs.utils.database.methods import Methods
+from cogs.utils.database.config import DBConfig
 
-metadata = config.get_metadata()
-engine = config.get_engine()
-connection = config.get_connection()
-db = methods.Methods(engine, metadata, connection)
+DBConfig = DBConfig()
+metadata = DBConfig.get_metadata()
+engine = DBConfig.get_engine()
+connection = DBConfig.get_connection()
+db = Methods(engine, metadata, connection)
 
 exp_mod = 1   # experience point modifier; progession speed through the system
 exp_gain = 15   # experience points gained per message
