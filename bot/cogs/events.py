@@ -1,4 +1,3 @@
-import discord
 from discord.ext import commands
 
 
@@ -14,10 +13,9 @@ class Events(commands.Cog):
         '''
         Welcomes new members to the server.
         '''
-        # guild = discord.utils.get(member.guilds, name=GUILD)
         await member.create_dm()
         await member.dm_channel.send(
-            'Hi {0.name}, welcome to {1.name}!'.format(member, member.guild)
+            f"Hi {member.name}, welcome to {member.guild.name}!"
         )
         channel = member.guild.system_channel
         await channel.send(f'{member.name} has joined the server!')
@@ -29,20 +27,24 @@ class Events(commands.Cog):
         '''
         if isinstance(error, commands.MissingPermissions):
             await ctx.send(
-                'You do not have the permissions required for this command.'
+                "You do not have the permissions required for this command."
             )
-            return
         elif isinstance(error, commands.errors.CheckFailure):
             await ctx.send(
-                'You do not have the correct role for this command.'
+                "You do not have the correct role for this command."
             )
-            return
         elif isinstance(error, commands.errors.BadArgument):
             await ctx.send(
-                'I could not find that user. Please try again.'
+                "I could not find what you specified. Please try again."
             )
-            return
-        raise error
+        elif isinstance(error, commands.errors.CommandNotFound):
+            await ctx.send(
+                "That command does not exist. "
+                "See `!help` for my list of commands."
+            )
+        elif isinstance(error, commands.errors.CommandInvokeError):
+            pass
+        print(error)
 
 
 def setup(bot):
