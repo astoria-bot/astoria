@@ -1,10 +1,9 @@
 from cogs.utils.database.methods import Methods
 from cogs.utils.database.config import DBConfig
 
-DBConfig = DBConfig()
-metadata = DBConfig.get_metadata()
-engine = DBConfig.get_engine()
-connection = DBConfig.get_connection()
+metadata = DBConfig().get_metadata()
+engine = DBConfig().get_engine()
+connection = DBConfig().get_connection()
 db = Methods(engine, metadata, connection)
 
 exp_mod = 1   # experience point modifier; progession speed through the system
