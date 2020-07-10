@@ -25,6 +25,8 @@ class Info(commands.Cog):
     @commands.command(name="members")
     async def member_count(self, ctx, status: str = None):
         '''
+        Returns the number of members in the server.
+        Usage: !members
         '''
         members = ctx.guild.member_count
         await ctx.send(members)
