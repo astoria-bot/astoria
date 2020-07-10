@@ -4,6 +4,7 @@ from discord.ext import commands
 
 MemberID = MemberID()
 
+
 class Moderation(commands.Cog):
     '''
     Moderation tools for astoria.

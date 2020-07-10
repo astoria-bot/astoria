@@ -9,9 +9,9 @@ db = Methods(engine, metadata, connection)
 exp_mod = 1   # experience point modifier; progession speed through the system
 exp_gain = 15   # experience points gained per message
 
-# Defines the message requirements for each level. Each element is the number of
-# messages for that level. Each level is represented by an element in the array.
-# 10 levels in each row of the list.
+# Defines the message requirements for each level. Each element is the number
+# of messages for that level. Each level is represented by an element in the
+# array. 10 levels in each row of the list.
 msg_list = [
         5, 5, 10, 10, 10, 20, 20, 20, 20, 20,
         30, 30, 30, 30, 30, 30, 30, 30, 40, 40,
@@ -76,20 +76,20 @@ def add_experience(discord_id, exp):
         exp = max_exp
     elif exp == max_exp:
         return
-    db.update_user(discord_id, exp = exp)
+    db.update_user(discord_id, exp=exp)
 
 
 def add_level(discord_id, level):
     '''Increases the user's level by 1 in the database.'''
-    if level < max_level: 
+    if level < max_level:
         level = level + 1
-        db.update_user(discord_id, lvl = level)
+        db.update_user(discord_id, lvl=level)
 
 
 def add_msg_count(discord_id, msgs):
     '''Increments the user's message count by 1 in the database.'''
     msgs = msgs + 1
-    db.update_user(discord_id, msg_count = msgs)
+    db.update_user(discord_id, msg_count=msgs)
 
 
 def ready_to_level(level, exp):
@@ -153,19 +153,19 @@ def is_max_msgs(discord_id):
 
 
 def reset_stats(discord_id):
-    db.update_user(discord_id, lvl = 1, exp = 0, msg_count = 0)
+    db.update_user(discord_id, lvl=1, exp=0, msg_count=0)
     print(f"Reset user: {discord_id} stats.")
 
 
 def set_exp(discord_id, xp):
     '''Sets a user's experience points.'''
-    db.update_user(discord_id, exp = xp)
+    db.update_user(discord_id, exp=xp)
 
 
 def set_level(discord_id, level):
     '''Set a user's level.'''
-    db.update_user(discord_id, lvl = level)
+    db.update_user(discord_id, lvl=level)
 
 
 def set_msg_count(discord_id, msgs):
-    db.update_user(discord_id, msg_count = msgs)
+    db.update_user(discord_id, msg_count=msgs)

@@ -62,5 +62,6 @@ class Games(commands.Cog):
         await asyncio.sleep(2)
         await ctx.send(result)
 
+
 def setup(bot):
     bot.add_cog(Games(bot))

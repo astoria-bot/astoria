@@ -20,7 +20,7 @@ bot = commands.Bot(command_prefix='!')
 # Log errors and debug information
 
 # Simple logger setup, outputs to console
-logging.basicConfig(level=logging.INFO)     
+logging.basicConfig(level=logging.INFO)
 
 # More advanced logger setup
 # logger = logging.getLogger('discord')
@@ -33,6 +33,7 @@ logging.basicConfig(level=logging.INFO)
 #     )
 # )
 # logger.addHandler(handler)
+
 
 @bot.event
 async def on_ready():

@@ -3,9 +3,11 @@ from cogs.utils.levelconfig import msg_sent
 from cogs.utils.database.methods import Methods
 from cogs.utils.database.config import DBConfig
 
+
 class Levels(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+        # Database connection
         self.engine = DBConfig().get_engine()
         self.metadata = DBConfig().get_metadata()
         self.conn = DBConfig().get_connection()
@@ -31,12 +33,12 @@ class Levels(commands.Cog):
         bucket = self._cd.get_bucket(msg)
         retry_after = bucket.update_rate_limit()
         if retry_after:
-             # User is rate limited
+            # User is rate limited
             pass
         else:
             # User is not rate limited
             msg_sent(msg.author.id, msg.author.name)
-          
-    
+
+
 def setup(bot):
     bot.add_cog(Levels(bot))
