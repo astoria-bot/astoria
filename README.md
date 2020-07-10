@@ -7,7 +7,30 @@ in Python 3.8.3
 
 ```
 pip install -r requirements.txt
-python bot.py
+python bot/bot.py
+```
+
+### Connecting to Discord
+
+You'll need to create a `.env` file in the following format:
+
+```
+DISCORD_TOKEN=your_discord_token
+DISCORD_GUILD=your_guild_name
+CHANNEL_ID=your_channel_id
+```
+
+Then you'll need to install `python-dotenv` through pip.
+
+### Connecting to the Database
+
+Add to your `.env` file:
+
+```
+USERNAME=your_username
+PASSWORD=your_password
+DATABASE=name_of_your_database
+HOST=how_you're_hosting_the_database
 ```
 
 ## Commands
@@ -44,3 +67,13 @@ python bot.py
 |------|-------------------------------|-------|
 | flip | Flips a coin: heads or tails? | !flip |
 | 8ball | Ask the magic 8-ball for an answer to a question. | !8ball [question] |
+
+## Starting the MySQL database
+
+This is more for me to remember.
+
+```
+sudo service mysql start
+mysql -u root -p
+sudo service mysql stop
+```
