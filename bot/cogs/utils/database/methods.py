@@ -64,7 +64,7 @@ class Methods:
                         setattr(user, col, var)
                         session.commit()
                         print(
-                            f"The {col} of user: {id} "
+                            f"The {col} of {user.name}: {id} "
                             f"has been updated to {var}."
                         )
             return
