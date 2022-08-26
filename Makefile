@@ -7,3 +7,6 @@ start-mysql:
 
 stop-mysql:
 	sudo service mysql stop
+
+pylint-all:
+	pylint bot/*
