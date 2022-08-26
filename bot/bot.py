@@ -4,7 +4,7 @@ import discord
 from discord.ext import commands
 from dotenv import load_dotenv
 
-status = "!help"      # Set bot status message here
+STATUS = "!help"      # Set bot status message here
 
 load_dotenv()
 
@@ -51,10 +51,10 @@ async def on_ready():
     except AttributeError:
         print(
             "An error occured. "
-            "Please check your .env file for incorrect variables.")
+            "Please check your `.env` file for incorrect variables.")
         return
     # Set status to be displayed on Discord
-    game = discord.Game(status)
+    game = discord.Game(STATUS)
     await bot.change_presence(status=discord.Status.online, activity=game)
     print("All setup tasks are completed! astoria is good to go!")
 

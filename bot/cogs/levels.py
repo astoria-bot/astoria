@@ -1,5 +1,5 @@
 from discord.ext import commands
-from cogs.utils.levelconfig import msg_sent
+from cogs.utils.levels.config import msg_sent
 from cogs.utils.database.methods import Methods
 from cogs.utils.database.config import DBConfig
 
