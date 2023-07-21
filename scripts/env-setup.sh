@@ -45,10 +45,6 @@ DISCORD_GUILD=$DISCORD_GUILD
 DISCORD_TOKEN=$DISCORD_TOKEN" > ./.env
 }
 
-# MAIN_CHANNEL_ID=""
-# DISCORD_GUILD=""
-# DISCORD_TOKEN=""
-
 parseargs "$@" || usage
 printvalues
 
