@@ -44,10 +44,10 @@ max_level = len(msg_list)
 
 
 def msg_sent(discord_id, username):
-    '''
+    """
     Each time a user sends a message, reward them with experience points.
     If the user reaches a certain threshold of points, their level increases.
-    '''
+    """
     user = db.get_user(discord_id)
     if user is None:
         d_id = discord_id
@@ -68,7 +68,7 @@ def msg_sent(discord_id, username):
 
 
 def add_experience(discord_id, exp):
-    '''Update user experience value in database.'''
+    """Update user experience value in database."""
     max_exp = get_max_exp()
     if exp < max_exp:
         exp = exp + exp_gain * exp_mod
@@ -80,22 +80,22 @@ def add_experience(discord_id, exp):
 
 
 def add_level(discord_id, level):
-    '''Increases the user's level by 1 in the database.'''
+    """Increases the user"s level by 1 in the database."""
     if level < max_level:
         level = level + 1
         db.update_user(discord_id, lvl=level)
 
 
 def add_msg_count(discord_id, msgs):
-    '''Increments the user's message count by 1 in the database.'''
+    """Increments the user"s message count by 1 in the database."""
     msgs = msgs + 1
     db.update_user(discord_id, msg_count=msgs)
 
 
 def ready_to_level(level, exp):
-    '''
+    """
     Checks if the user has met the experience requirements for the next level.
-    '''
+    """
     if exp >= exp_req[level-1]:
         return True
     return False
@@ -117,19 +117,19 @@ def get_user_msgs(discord_id):
 
 
 def get_max_exp():
-    '''Returns maxiumum experience required to hit level 100.'''
+    """Returns maxiumum experience required to hit level 100."""
     exp = sum(exp_list)
     return exp
 
 
 def get_max_msgs():
-    '''Returns maximum messages required to hit level 100.'''
+    """Returns maximum messages required to hit level 100."""
     msgs = sum(msg_list)
     return msgs
 
 
 def is_max_lvl(discord_id):
-    '''Checks to see if user has hit max level.'''
+    """Checks to see if user has hit max level."""
     cur_lvl = get_user_lvl(discord_id)
     if cur_lvl == max_level:
         return True
@@ -137,7 +137,7 @@ def is_max_lvl(discord_id):
 
 
 def is_max_exp(discord_id):
-    '''Checks to see if user has hit max experience.'''
+    """Checks to see if user has hit max experience."""
     cur_exp = get_user_exp(discord_id)
     if cur_exp == get_max_exp():
         return True
@@ -145,7 +145,7 @@ def is_max_exp(discord_id):
 
 
 def is_max_msgs(discord_id):
-    '''Checks to see if user has hit the max amount of messages.'''
+    """Checks to see if user has hit the max amount of messages."""
     cur_msgs = get_user_msgs(discord_id)
     if cur_msgs == get_max_msgs():
         return True
@@ -158,12 +158,12 @@ def reset_stats(discord_id):
 
 
 def set_exp(discord_id, xp):
-    '''Sets a user's experience points.'''
+    """Sets a user"s experience points."""
     db.update_user(discord_id, exp=xp)
 
 
 def set_level(discord_id, level):
-    '''Set a user's level.'''
+    """Set a user"s level."""
     db.update_user(discord_id, lvl=level)
 
 

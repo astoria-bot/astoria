@@ -5,7 +5,7 @@ from discord.ext import commands
 from dotenv import load_dotenv
 
 STATUS = "!help"      # Set bot status message here
-PREFIX = "!"
+PREFIX = "!"          # Prefix to trigger bot commands on Discord
 
 load_dotenv()
 
