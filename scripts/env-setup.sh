@@ -22,12 +22,12 @@ MANPAGE
 }
 
 parseargs(){
-    while getopts c:g:h:t OPTION; do
+    while getopts c:g:t:h OPTION; do
         case "$OPTION" in
             c) MAIN_CHANNEL_ID="$OPTARG";;
             g) DISCORD_GUILD="$OPTARG";;
-            h) manpage; exit 0;;
             t) DISCORD_TOKEN="$OPTARG";;
+            h) manpage; exit 0;;
         esac
     done
 }
@@ -45,6 +45,9 @@ DISCORD_GUILD=$DISCORD_GUILD
 DISCORD_TOKEN=$DISCORD_TOKEN" > ./.env
 }
 
+# MAIN_CHANNEL_ID=""
+# DISCORD_GUILD=""
+# DISCORD_TOKEN=""
 
 parseargs "$@" || usage
 printvalues
