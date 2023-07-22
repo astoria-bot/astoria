@@ -40,7 +40,8 @@ printvalues(){
 }
 
 envfilecreate(){
-    echo "CHANNEL_ID=$MAIN_CHANNEL_ID
+    echo "# This file is used to gather information needed to connect to a Discord server
+CHANNEL_ID=$MAIN_CHANNEL_ID
 DISCORD_GUILD=$DISCORD_GUILD
 DISCORD_TOKEN=$DISCORD_TOKEN" > ./.env
 }
