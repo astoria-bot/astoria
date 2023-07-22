@@ -7,10 +7,8 @@ class Info(commands.Cog):
 
     @commands.command()
     async def about(self, ctx):
-        """
-        Displays a description about the bot.
-        Usage: !about
-        """
+        """Displays a description about the bot.
+        Usage: !about"""
         await ctx.send(
             """
             Hi I"m astoria! I"m a Discord bot made with Discord.py.
@@ -23,13 +21,11 @@ class Info(commands.Cog):
     @commands.has_permissions(administrator=True)
     @commands.command(name="members")
     async def member_count(self, ctx, status: str = None):
-        """
-        Returns the number of members in the server.
-        Usage: !members
-        """
+        """Returns the number of members in the server.
+        Usage: !members"""
         members = ctx.guild.member_count
         await ctx.send(members)
 
 
-def setup(bot):
+async def setup(bot: commands.Bot) -> None:
     bot.add_cog(Info(bot))

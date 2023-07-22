@@ -38,12 +38,14 @@ async def on_ready():
     await bot.change_presence(status=discord.Status.online, activity=game)
     print("All setup tasks are completed! astoria is good to go!")
 
+@bot.event
+async def setup_hook() -> None:
+    """Loads extensions/cogs from 'cogs/' folder"""
+    print("Loading extensions...")
+    for file in os.listdir("bot/cogs"):
+        if file.endswith(".py"):
+            name = file[:-3]
+            await bot.load_extension(f"cogs.{name}")
+            print("Loading " + f"cogs.{name}")
 
-# Loads extensions/cogs from 'cogs/' folder
-print("Loading extensions...")
-for file in os.listdir("bot/cogs"):
-    if file.endswith(".py"):
-        name = file[:-3]
-        bot.load_extension(f"cogs.{name}")
-        print("Loading " + f"cogs.{name}")
 bot.run(TOKEN)

@@ -3,20 +3,16 @@ from discord.ext import commands
 
 
 class Admin(commands.Cog):
-    """
-    Administrative tools for astoria.
-    """
+    """Administrative tools for astoria."""
     def __init__(self, bot):
         self.bot = bot
 
     @commands.has_permissions(administrator=True)
     @commands.command(name="setup")
     async def first_time_setup(self, ctx):
-        """
-        This command must be used for best functionality of the bot. Failure to
+        """This command must be used for best functionality of the bot. Failure to
         do so will result in bugs.
-        Usage: !setup
-        """
+        Usage: !setup"""
         await ctx.send("Setting up server for best possible functionality...")
         print("Performing setup for the server...")
         # Setup the Muted role for mute and unmute commands
@@ -44,10 +40,8 @@ class Admin(commands.Cog):
     @commands.has_permissions(administrator=True)
     @commands.command(name="setstatus")
     async def set_status(self, ctx, status: str = None):
-        """
-        Changes the status message of the bot.
-        Usage: !setstatus [status]
-        """
+        """Changes the status message of the bot.
+        Usage: !setstatus [status]"""
         if status is None:
             await ctx.send("No status was recevied. Status is unchanged.")
             return
@@ -58,5 +52,5 @@ class Admin(commands.Cog):
         await ctx.send("Bot status has been changed!")
 
 
-def setup(bot):
+async def setup(bot: commands.Bot) -> None:
     bot.add_cog(Admin(bot))

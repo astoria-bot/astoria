@@ -18,17 +18,13 @@ class Levels(commands.Cog):
 
     @commands.Cog.listener()
     async def on_member_join(self, member):
-        """
-        Add new members to the leveling database.
-        """
+        """Add new members to the leveling database."""
         self.db.add_user(member.id, member.name, 1, 0, 0)
 
     @commands.Cog.listener()
     async def on_message(self, msg):
-        """
-        Grants user experience points for a message sent every 60 seconds per
-        user.
-        """
+        """Grants user experience points for a message sent every 60 seconds per
+        user."""
         # Cooldown for updating user stats in leveling system
         bucket = self._cd.get_bucket(msg)
         retry_after = bucket.update_rate_limit()
@@ -40,5 +36,5 @@ class Levels(commands.Cog):
             msg_sent(msg.author.id, msg.author.name)
 
 
-def setup(bot):
+async def setup(bot: commands.Bot) -> None:
     bot.add_cog(Levels(bot))

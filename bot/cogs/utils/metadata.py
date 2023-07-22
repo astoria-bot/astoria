@@ -2,10 +2,8 @@ from discord.ext import commands
 
 
 class MemberID(commands.Converter):
-    """
-    Source: https://github.com/Rapptz/RoboDanny/blob/rewrite/cogs/mod.py
-    Used for getting the User ID for unbanning users.
-    """
+    """Source: https://github.com/Rapptz/RoboDanny/blob/rewrite/cogs/mod.py
+    Used for getting the User ID for unbanning users."""
     async def convert(self, ctx, argument):
         try:
             m = await commands.MemberConverter().convert(ctx, argument)
