@@ -1,13 +1,22 @@
 # Astoria: A Discord Bot
 
-A simple Discord bot built with discord.py v1.0+. Astoria currently is written
-in Python 3.8.3
+A simple Discord bot built with discord.py. Astoria currently is written
+in Python 3.10.6.
+
+## Resources
+- [discord.py](https://discordpy.readthedocs.io/en/stable/index.html)
+
+## Requirements
+- [Docker](https://www.docker.com/)
+- [MySQL](https://www.mysql.com/)
 
 ## Installation
-
 ```
-pip install -r requirements.txt
-python bot/bot.py
+docker build --tag "astoria" .
+
+python3 -m venv astoria-env
+source astoria-env/bin/activate
+python3 -m pip install -r requirements.txt
 ```
 
 ### Connecting to Discord
@@ -15,9 +24,9 @@ python bot/bot.py
 You'll need to create a `.env` file in the following format:
 
 ```
-DISCORD_TOKEN=your_discord_token
-DISCORD_GUILD=your_guild_name
-CHANNEL_ID=your_channel_id
+DISCORD_TOKEN=${your_discord_token}
+DISCORD_GUILD=${your_guild_name}
+CHANNEL_ID=${your_channel_id}
 ```
 
 Then you'll need to install `python-dotenv` through pip.
@@ -27,10 +36,10 @@ Then you'll need to install `python-dotenv` through pip.
 Add to your `.env` file:
 
 ```
-USERNAME=your_username
-PASSWORD=your_password
-DATABASE=name_of_your_database
-HOST=how_you're_hosting_the_database
+USERNAME=${your_username}
+PASSWORD=${your_password}
+DATABASE=${name_of_your_database}
+HOST=${how_you're_hosting_the_database}
 ```
 
 ## Commands
@@ -68,12 +77,9 @@ HOST=how_you're_hosting_the_database
 | flip | Flips a coin: heads or tails? | !flip |
 | 8ball | Ask the magic 8-ball for an answer to a question. | !8ball [question] |
 
-## Starting the MySQL database
-
-This is more for me to remember.
+## Starting/Stopping the MySQL database
 
 ```
-sudo service mysql start
-mysql -u root -p
-sudo service mysql stop
+make start-mysql
+make stop-mysql
 ```

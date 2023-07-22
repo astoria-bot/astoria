@@ -1,5 +1,7 @@
-.vscode
+
 .env
+.vscode
+astoria-env/
 discord.log
 
 __pycache__

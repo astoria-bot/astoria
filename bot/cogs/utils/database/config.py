@@ -5,10 +5,10 @@ from cogs.utils.database.models import Base
 
 load_dotenv()
 
-USER = os.getenv('USERNAME')
-PASSWORD = os.getenv('PASSWORD')
-DATABASE = os.getenv('DATABASE')
-HOST = os.getenv('HOST')
+USER = os.getenv("USERNAME")
+PASSWORD = os.getenv("PASSWORD")
+DATABASE = os.getenv("DATABASE")
+HOST = os.getenv("HOST")
 
 
 class DBConfig:

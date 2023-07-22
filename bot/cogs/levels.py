@@ -1,5 +1,5 @@
 from discord.ext import commands
-from cogs.utils.levelconfig import msg_sent
+from cogs.utils.levels.config import msg_sent
 from cogs.utils.database.methods import Methods
 from cogs.utils.database.config import DBConfig
 
@@ -18,17 +18,17 @@ class Levels(commands.Cog):
 
     @commands.Cog.listener()
     async def on_member_join(self, member):
-        '''
+        """
         Add new members to the leveling database.
-        '''
+        """
         self.db.add_user(member.id, member.name, 1, 0, 0)
 
     @commands.Cog.listener()
     async def on_message(self, msg):
-        '''
+        """
         Grants user experience points for a message sent every 60 seconds per
         user.
-        '''
+        """
         # Cooldown for updating user stats in leveling system
         bucket = self._cd.get_bucket(msg)
         retry_after = bucket.update_rate_limit()
