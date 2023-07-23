@@ -11,13 +11,21 @@ RUN apt-get update && \
     apt-get install -y software-properties-common && \
     add-apt-repository -y ppa:deadsnakes/ppa && \
     apt-get update && \
-    apt install -y python${PYTHON_VERSION}
-RUN apt-get -y install git
+    apt install -y python${PYTHON_VERSION} && \
+    apt install -y python${PYTHON_VERSION}-venv && \
+    apt-get install -y python3-pip && \
+    apt-get -y install git
 
 # Create developer user
 RUN useradd -ms /bin/bash ${USERNAME}
 USER ${USERNAME}
 WORKDIR /home/${USERNAME}
 
-# Clone git repository
-RUN git clone https://github.com/jgo28/astoria.git
+# Copy over necessary files for astoria and install pip requirements
+WORKDIR /home/${USERNAME}/astoria/
+COPY requirements.txt ./
+COPY ./bot bot
+COPY .env .env
+RUN pip install -r requirements.txt
+
+ENTRYPOINT ["python3", "bot/bot.py"]

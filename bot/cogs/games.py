@@ -16,7 +16,7 @@ class Games(commands.Cog):
         coin_sides = ["Heads!", "Tails!"]
         result = random.choice(coin_sides)
         await ctx.send("Flipping a coin...")
-        await ctx.trigger_typing()
+        await ctx.typing()
         await asyncio.sleep(2)
         await ctx.send(result)
 
