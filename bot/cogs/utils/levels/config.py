@@ -44,10 +44,8 @@ max_level = len(msg_list)
 
 
 def msg_sent(discord_id, username):
-    """
-    Each time a user sends a message, reward them with experience points.
-    If the user reaches a certain threshold of points, their level increases.
-    """
+    """Each time a user sends a message, reward them with experience points.
+    If the user reaches a certain threshold of points, their level increases."""
     user = db.get_user(discord_id)
     if user is None:
         d_id = discord_id
@@ -93,9 +91,7 @@ def add_msg_count(discord_id, msgs):
 
 
 def ready_to_level(level, exp):
-    """
-    Checks if the user has met the experience requirements for the next level.
-    """
+    """Checks if the user has met the experience requirements for the next level."""
     if exp >= exp_req[level-1]:
         return True
     return False

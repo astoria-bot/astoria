@@ -15,7 +15,7 @@ class Users(Base):
 
     # Allows us to print out a User object nicely
     def __repr__(self):
-        text = ("<User(name="{self.name}", discord_id="{self.discord_id}","
-                "level="{self.level}", experience="{self.experience}","
-                "message_count="{self.message_count}")")
+        text = ("<User(name='{self.name}', discord_id='{self.discord_id}',"
+                "level='{self.level}', experience='{self.experience}',"
+                "message_count='{self.message_count}')")
         return text

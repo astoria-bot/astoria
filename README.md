@@ -4,42 +4,44 @@ A simple Discord bot built with discord.py. Astoria currently is written
 in Python 3.10.6.
 
 ## Resources
-- [discord.py](https://discordpy.readthedocs.io/en/stable/index.html)
+- [Discord.py](https://discordpy.readthedocs.io/en/stable/index.html)
+- [Discord developer docs](https://discord.com/developers/docs/intro)
 
 ## Requirements
 - [Docker](https://www.docker.com/)
 - [MySQL](https://www.mysql.com/)
 
 ## Installation
+
+### Build Docker Image
 ```
 docker build --tag "astoria" .
+```
 
+### Setup virtual environment
+```
 python3 -m venv astoria-env
 source astoria-env/bin/activate
 python3 -m pip install -r requirements.txt
 ```
 
 ### Connecting to Discord
-
-You'll need to create a `.env` file in the following format:
+Create a `.env` file in the following format:
 
 ```
-DISCORD_TOKEN=${your_discord_token}
-DISCORD_GUILD=${your_guild_name}
-CHANNEL_ID=${your_channel_id}
+DISCORD_TOKEN=${TOKEN}
+DISCORD_GUILD=${GUILD}
+CHANNEL_ID=${CHANNEL_ID}
 ```
-
-Then you'll need to install `python-dotenv` through pip.
 
 ### Connecting to the Database
-
 Add to your `.env` file:
 
 ```
-USERNAME=${your_username}
-PASSWORD=${your_password}
-DATABASE=${name_of_your_database}
-HOST=${how_you're_hosting_the_database}
+USERNAME=${USERNAME}
+PASSWORD=${PASSWORD}
+DATABASE=${DATABASE_NAME}
+HOST=${HOST_IP}
 ```
 
 ## Commands
