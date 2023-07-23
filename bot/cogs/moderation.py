@@ -136,4 +136,4 @@ class Moderation(commands.Cog):
 
 
 async def setup(bot: commands.Bot) -> None:
-    bot.add_cog(Moderation(bot))
+    await bot.add_cog(Moderation(bot))

@@ -28,4 +28,4 @@ class Info(commands.Cog):
 
 
 async def setup(bot: commands.Bot) -> None:
-    bot.add_cog(Info(bot))
+    await bot.add_cog(Info(bot))

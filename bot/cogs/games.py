@@ -58,4 +58,4 @@ class Games(commands.Cog):
 
 
 async def setup(bot: commands.Bot) -> None:
-    bot.add_cog(Games(bot))
+    await bot.add_cog(Games(bot))
