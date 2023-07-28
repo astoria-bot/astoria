@@ -27,6 +27,7 @@ docker run --rm -it  astoria:latest
 ### Testing via locally
 If you want to do testing on your machine, you can set up a Python virtual environment:
 #### Setup virtual environment
+
 ```
 python3 -m venv astoria-env
 source astoria-env/bin/activate
