@@ -1,3 +1,9 @@
+docker-build:
+	docker build --tag "astoria" .
+
+docker-run:
+	docker run --rm -it  astoria:latest 
+
 start:
 	python3 bot/bot.py
 
@@ -10,3 +16,9 @@ stop-mysql:
 
 pylint-all:
 	pylint bot/*
+
+black:
+	black .
+
+black-check:
+	black --check .

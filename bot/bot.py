@@ -1,56 +1,82 @@
-import os
+"""Startup code for astoria bot."""
+from os import getenv, listdir
+import logging
+import asyncio
 import discord
+
 from discord.ext import commands
 from dotenv import load_dotenv
 
-STATUS = "!help"      # Set bot status message here
-PREFIX = "!"          # Prefix to trigger bot commands on Discord
+
+STATUS = "!help"  # Set bot status message here
+PREFIX = "!"  # Prefix to trigger bot commands on Discord
 
 load_dotenv()
 
-# Loaded from separate .env file
-TOKEN = os.getenv("DISCORD_TOKEN")
-GUILD_ID = os.getenv("DISCORD_GUILD")
-MAIN_CHANNEL = int(os.getenv("CHANNEL_ID")) # Main channel for the bot to post messages
+# TODO: Store and pull these credentials from a vault
+TOKEN = getenv("DISCORD_TOKEN")
+GUILD_ID = getenv("DISCORD_GUILD")
+MAIN_CHANNEL = int(getenv("CHANNEL_ID"))
+
+# Set severity level of logs to display
+logging.basicConfig(level=logging.INFO)
 
 intents = discord.Intents.default()
 intents.members = True
 intents.message_content = True
 
-bot = commands.Bot(command_prefix=PREFIX, intents=intents)
+# Set status to be displayed on Discord
+activity = discord.Game(STATUS)
+bot = commands.Bot(
+    command_prefix=PREFIX,
+    activity=activity,
+    status=discord.Status.online,
+    intents=intents,
+)
 
-@bot.event
-async def on_ready():
-    """Launches bot and connects to Discord server based on
-    information in '.env' file."""
-    try:
-        print(
-            f"{bot.user} has connected to Discord!\n"
-        )
-    except AttributeError as err:
-        print(
-            "An error occured. "
-            "Please check your '.env' file for incorrect variables.\n"
-            "Error message: ", err)
-        return
-    # Set status to be displayed on Discord
-    game = discord.Game(STATUS)
-    await bot.change_presence(status=discord.Status.online, activity=game)
-    print("All setup tasks are completed! astoria is good to go!")
 
-@bot.event
-async def setup_hook() -> None:
-    """Loads extensions/cogs from 'cogs/' folder"""
-    print("Loading extensions...")
-    for file in os.listdir("bot/cogs"):
+async def load_extensions() -> None:
+    """Load cogs from cogs/ directory"""
+    logging.info("Loading cogs...")
+    for file in listdir("bot/cogs"):
         if file.endswith(".py"):
             name = file[:-3]
-            # TODO: Improve the system to catch cog related exception errors
+            cog_name = f"cogs.{name}"
             try:
-                await bot.load_extension(f"cogs.{name}")
-            except Exception as err:
-                print("ERROR! Unable to load " + f"cogs.{name}\n" + f"Error msg: {err}")
+                await bot.load_extension(cog_name)
+            except commands.ExtensionNotFound as err:
+                logging.error("Cannot find %s: %s", cog_name, err)
+            except commands.ExtensionAlreadyLoaded as err:
+                logging.warning("%s has already been loaded: %s", cog_name, err)
+            except commands.NoEntryPointError as err:
+                logging.error("%s is missing a setup function: %s", cog_name, err)
+            except commands.ExtensionFailed as err:
+                logging.error("%s had an execution error: %s", cog_name, err)
             else:
-                print("Loading " + f"cogs.{name}")
+                logging.info("Loaded %s", cog_name)
 
-bot.run(TOKEN)
+
+async def main() -> None:
+    """Load extensions and start bot"""
+    async with bot:
+        await load_extensions()
+        await bot.start(TOKEN)
+
+
+@bot.event
+async def on_ready() -> None:
+    """Launch bot and connect to specified Discord server."""
+    try:
+        logging.info("%s has connected to Discord!", bot.user)
+    except AttributeError as err:
+        logging.error(
+            "An error occured. "
+            "Please check your '.env' file for incorrect variables.\n"
+            "Error message: %s",
+            err,
+        )
+        return
+    logging.info("All setup tasks are completed! astoria is good to go!")
+
+
+asyncio.run(main())

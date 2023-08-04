@@ -7,14 +7,11 @@ ENV PYTHON_VERSION=3.10
 
 # Update dependencies
 RUN apt update && apt upgrade -y
-RUN apt-get update && \
-    apt-get install -y software-properties-common && \
-    add-apt-repository -y ppa:deadsnakes/ppa && \
-    apt-get update && \
-    apt install -y python${PYTHON_VERSION} && \
-    apt install -y python${PYTHON_VERSION}-venv && \
-    apt-get install -y python3-pip && \
-    apt-get -y install git
+RUN apt install -y python${PYTHON_VERSION} python${PYTHON_VERSION}-venv \
+    python3-pip git \
+    pkg-config python3-dev build-essential software-properties-common \
+    default-libmysqlclient-dev && \
+    add-apt-repository -y ppa:deadsnakes/ppa
 
 # Create developer user
 RUN useradd -ms /bin/bash ${USERNAME}
