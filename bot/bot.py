@@ -58,9 +58,8 @@ async def load_extensions() -> None:
 
 async def main() -> None:
     """Load extensions and start bot"""
-    async with bot:
-        await load_extensions()
-        await bot.start(TOKEN)
+    await load_extensions()
+    await bot.start(TOKEN)
 
 
 @bot.event
@@ -78,5 +77,7 @@ async def on_ready() -> None:
         return
     logging.info("All setup tasks are completed! astoria is good to go!")
 
-
-asyncio.run(main())
+# Run the bot
+if __name__ == "__main__":
+    # Run the main function using the default event loop
+    asyncio.run(main())

@@ -15,13 +15,19 @@ in Python 3.10.6.
 
 ### Docker Container
 The bot can be run within the Docker container. The Docker container has the dependencies to run the bot.
-#### Build Docker Image
+#### Build Docker Images
 ```
-make docker-build
+docker-compose build
 ```
-#### Run Docker Image
+#### Run Docker Images
 ```
-make docker-run
+docker-compose up -d
+```
+
+### View logs
+```
+docker-compose logs -f bot
+docker-compose logs -f mysql
 ```
 
 ### Testing via locally

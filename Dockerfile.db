@@ -1,0 +1,10 @@
+FROM mysql:8.2.0
+
+# Set environment variables
+ENV MYSQL_ROOT_PASSWORD="testrootpass"
+ENV MYSQL_DATABASE="testdb"
+ENV MYSQL_USER="testuser"
+ENV MYSQL_PASSWORD="testpass"
+
+# Expose the MySQL port
+EXPOSE 3306

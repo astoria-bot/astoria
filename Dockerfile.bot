@@ -25,4 +25,13 @@ COPY ./bot bot
 COPY .env .env
 RUN pip install -r requirements.txt
 
+# Set environment variables for database connection
+ENV DB_HOST=my-mysql-container
+ENV DB_PORT=3306
+ENV DB_USER="testuser"
+ENV DB_PASSWORD="testpass"
+ENV DB_DATABASE="testdb"
+
+EXPOSE 80
+
 ENTRYPOINT ["python3", "bot/bot.py"]

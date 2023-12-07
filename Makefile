@@ -1,8 +1,14 @@
-docker-build:
-	docker build --tag "astoria" .
+docker-build-bot:
+	docker build --tag "astoria-bot" . -f Dockerfile.bot
 
-docker-run:
-	docker run --rm -it  astoria:latest 
+docker-run-bot:
+	docker run --rm -it  astoria-bot:latest
+
+docker-build-db:
+	docker build --tag "astoria-db" . -f Dockerfile.db
+
+docker-run-db:
+	docker run --rm -it  astoria-db:latest
 
 start:
 	python3 bot/bot.py
