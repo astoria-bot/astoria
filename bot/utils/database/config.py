@@ -1,16 +1,10 @@
 """Handles database creation and connection."""
-from os import getenv
 from sqlalchemy import create_engine, MetaData
 from sqlalchemy.engine import URL
 from sqlalchemy.schema import CreateTable
-from dotenv import load_dotenv
 
+from bot.utils.common import DatabaseConstants
 from bot.utils.database.models import Guild
-
-load_dotenv()
-USERNAME = getenv("DB_USERNAME")
-PASSWORD = getenv("DB_PASSWORD")
-HOST = getenv("DB_HOST")
 
 
 class DatabaseConfiguration:
@@ -24,11 +18,11 @@ class DatabaseConfiguration:
     def __enter__(self):
         """Create database connection."""
         url = URL.create(
-            drivername="mysqldb",
-            username=USERNAME,
-            password=PASSWORD,
-            host=HOST,
-            database="astoria-db",
+            drivername=DatabaseConstants.DRIVERNAME,
+            username=DatabaseConstants.USERNAME,
+            password=DatabaseConstants.PASSWORD,
+            host=DatabaseConstants.HOST,
+            database=DatabaseConstants.DB_NAME,
         )
         self.engine = create_engine(url)
         self.connection = self.engine.connect()

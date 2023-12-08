@@ -22,15 +22,17 @@ WORKDIR /home/${USERNAME}
 WORKDIR /home/${USERNAME}/astoria/
 COPY requirements.txt ./
 COPY ./bot bot
-COPY .env .env
 RUN pip install -r requirements.txt
 
+# TODO: Needs to be stored in a vault
 # Set environment variables for database connection
-ENV DB_HOST=my-mysql-container
-ENV DB_PORT=3306
-ENV DB_USER="testuser"
-ENV DB_PASSWORD="testpass"
-ENV DB_DATABASE="testdb"
+ENV MYSQL_ROOT_PASSWORD=testrootpass
+ENV MYSQL_DATABASE=testdb
+ENV MYSQL_USER=testuser
+ENV MYSQL_PASSWORD=testpass
+
+ENV CHANNEL_ID=1132394869478920352
+ENV DISCORD_GUILD=189589596391211018
 
 EXPOSE 80
 

@@ -1,22 +1,13 @@
 """Startup code for astoria bot."""
-from os import getenv, listdir
+from os import listdir
 import logging
 import asyncio
 import discord
 
 from discord.ext import commands
-from dotenv import load_dotenv
 
+from bot.utils.common import BotConstants, DiscordConstants
 
-STATUS = "!help"  # Set bot status message here
-PREFIX = "!"  # Prefix to trigger bot commands on Discord
-
-load_dotenv()
-
-# TODO: Store and pull these credentials from a vault
-TOKEN = getenv("DISCORD_TOKEN")
-GUILD_ID = getenv("DISCORD_GUILD")
-MAIN_CHANNEL = int(getenv("CHANNEL_ID"))
 
 # Set severity level of logs to display
 logging.basicConfig(level=logging.INFO)
@@ -26,9 +17,9 @@ intents.members = True
 intents.message_content = True
 
 # Set status to be displayed on Discord
-activity = discord.Game(STATUS)
+activity = discord.Game(BotConstants.STATUS)
 bot = commands.Bot(
-    command_prefix=PREFIX,
+    command_prefix=BotConstants.PREFIX,
     activity=activity,
     status=discord.Status.online,
     intents=intents,
@@ -59,7 +50,7 @@ async def load_extensions() -> None:
 async def main() -> None:
     """Load extensions and start bot"""
     await load_extensions()
-    await bot.start(TOKEN)
+    await bot.start(DiscordConstants.TOKEN)
 
 
 @bot.event

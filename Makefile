@@ -8,17 +8,10 @@ docker-build-db:
 	docker build --tag "astoria-db" . -f Dockerfile.db
 
 docker-run-db:
-	docker run --rm -it  astoria-db:latest
+	docker run -it --name mysql-db --env-file=.env -p 3306:3306 astoria-db:latest
 
 start:
 	python3 bot/bot.py
-
-start-mysql:
-	sudo service mysql start
-	mysql -u root -p
-
-stop-mysql:
-	sudo service mysql stop
 
 pylint-all:
 	pylint bot/*

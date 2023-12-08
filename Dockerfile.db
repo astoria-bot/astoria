@@ -1,10 +1,14 @@
 FROM mysql:8.2.0
 
-# Set environment variables
-ENV MYSQL_ROOT_PASSWORD="testrootpass"
-ENV MYSQL_DATABASE="testdb"
-ENV MYSQL_USER="testuser"
-ENV MYSQL_PASSWORD="testpass"
+# TODO: Needs to be stored in a vault
+# Set environment variables for database connection
+ENV MYSQL_ROOT_PASSWORD=testrootpass
+ENV MYSQL_DATABASE=testdb
+ENV MYSQL_USER=testuser
+ENV MYSQL_PASSWORD=testpass
+
+ENV CHANNEL_ID=1132394869478920352
+ENV DISCORD_GUILD=189589596391211018
 
 # Expose the MySQL port
 EXPOSE 3306
